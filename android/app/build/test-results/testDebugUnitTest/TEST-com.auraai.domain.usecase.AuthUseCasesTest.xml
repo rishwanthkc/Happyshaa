@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.auraai.domain.usecase.AuthUseCasesTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-07-26T07:26:08" hostname="LAPTOP-KV188SF6" time="4.087">
+  <properties/>
+  <testcase name="syncUser_callsRepository_returnsSuccess" classname="com.auraai.domain.usecase.AuthUseCasesTest" time="4.022"/>
+  <testcase name="signIn_withEmptyInputs_returnsFailure" classname="com.auraai.domain.usecase.AuthUseCasesTest" time="0.007"/>
+  <testcase name="signInWithGoogle_withValidToken_returnsSuccess" classname="com.auraai.domain.usecase.AuthUseCasesTest" time="0.027"/>
+  <testcase name="signUp_withValidInputs_returnsSuccess" classname="com.auraai.domain.usecase.AuthUseCasesTest" time="0.017"/>
+  <testcase name="signIn_withValidInputs_returnsSuccess" classname="com.auraai.domain.usecase.AuthUseCasesTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

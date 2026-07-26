@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.auraai.ui.contacts.ContactsViewModelTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-07-26T07:26:13" hostname="LAPTOP-KV188SF6" time="0.338">
+  <properties/>
+  <testcase name="addContact_success_triggersReload" classname="com.auraai.ui.contacts.ContactsViewModelTest" time="0.31"/>
+  <testcase name="loadContacts_success_updatesContactsState" classname="com.auraai.ui.contacts.ContactsViewModelTest" time="0.028"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

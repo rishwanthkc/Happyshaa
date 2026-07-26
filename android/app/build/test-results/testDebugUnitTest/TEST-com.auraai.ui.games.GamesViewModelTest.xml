@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.auraai.ui.games.GamesViewModelTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-07-26T07:26:14" hostname="LAPTOP-KV188SF6" time="0.323">
+  <properties/>
+  <testcase name="submitScore_success_emitsProgressEvent" classname="com.auraai.ui.games.GamesViewModelTest" time="0.296"/>
+  <testcase name="loadGameCenter_success_updatesGamesState" classname="com.auraai.ui.games.GamesViewModelTest" time="0.027"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

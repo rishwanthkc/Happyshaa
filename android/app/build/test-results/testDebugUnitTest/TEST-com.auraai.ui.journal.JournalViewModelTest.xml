@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.auraai.ui.journal.JournalViewModelTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-07-26T07:26:14" hostname="LAPTOP-KV188SF6" time="0.34">
+  <properties/>
+  <testcase name="submitJournal_success_emitsRecentAnalysis" classname="com.auraai.ui.journal.JournalViewModelTest" time="0.308"/>
+  <testcase name="loadJournalData_success_updatesJournalLists" classname="com.auraai.ui.journal.JournalViewModelTest" time="0.031"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

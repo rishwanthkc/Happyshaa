@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.auraai.ui.chat.ChatViewModelTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-07-26T07:26:13" hostname="LAPTOP-KV188SF6" time="0.257">
+  <properties/>
+  <testcase name="sendMessage_success_streamsAndAppendsBotMessage" classname="com.auraai.ui.chat.ChatViewModelTest" time="0.226"/>
+  <testcase name="loadChatHistory_success_updatesMessagesList" classname="com.auraai.ui.chat.ChatViewModelTest" time="0.03"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

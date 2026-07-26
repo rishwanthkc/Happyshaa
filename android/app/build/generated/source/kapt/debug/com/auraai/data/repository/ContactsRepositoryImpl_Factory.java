@@ -1,0 +1,43 @@
+package com.auraai.data.repository;
+
+import com.auraai.data.remote.api.AuraApiService;
+import dagger.internal.DaggerGenerated;
+import dagger.internal.Factory;
+import dagger.internal.QualifierMetadata;
+import dagger.internal.ScopeMetadata;
+import javax.annotation.processing.Generated;
+import javax.inject.Provider;
+
+@ScopeMetadata("javax.inject.Singleton")
+@QualifierMetadata
+@DaggerGenerated
+@Generated(
+    value = "dagger.internal.codegen.ComponentProcessor",
+    comments = "https://dagger.dev"
+)
+@SuppressWarnings({
+    "unchecked",
+    "rawtypes",
+    "KotlinInternal",
+    "KotlinInternalInJava"
+})
+public final class ContactsRepositoryImpl_Factory implements Factory<ContactsRepositoryImpl> {
+  private final Provider<AuraApiService> apiServiceProvider;
+
+  public ContactsRepositoryImpl_Factory(Provider<AuraApiService> apiServiceProvider) {
+    this.apiServiceProvider = apiServiceProvider;
+  }
+
+  @Override
+  public ContactsRepositoryImpl get() {
+    return newInstance(apiServiceProvider.get());
+  }
+
+  public static ContactsRepositoryImpl_Factory create(Provider<AuraApiService> apiServiceProvider) {
+    return new ContactsRepositoryImpl_Factory(apiServiceProvider);
+  }
+
+  public static ContactsRepositoryImpl newInstance(AuraApiService apiService) {
+    return new ContactsRepositoryImpl(apiService);
+  }
+}

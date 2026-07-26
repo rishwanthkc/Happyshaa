@@ -1,0 +1,45 @@
+package com.auraai.ui;
+
+import com.auraai.data.local.preferences.PreferenceManager;
+import dagger.MembersInjector;
+import dagger.internal.DaggerGenerated;
+import dagger.internal.InjectedFieldSignature;
+import dagger.internal.QualifierMetadata;
+import javax.annotation.processing.Generated;
+import javax.inject.Provider;
+
+@QualifierMetadata
+@DaggerGenerated
+@Generated(
+    value = "dagger.internal.codegen.ComponentProcessor",
+    comments = "https://dagger.dev"
+)
+@SuppressWarnings({
+    "unchecked",
+    "rawtypes",
+    "KotlinInternal",
+    "KotlinInternalInJava"
+})
+public final class MainActivity_MembersInjector implements MembersInjector<MainActivity> {
+  private final Provider<PreferenceManager> preferenceManagerProvider;
+
+  public MainActivity_MembersInjector(Provider<PreferenceManager> preferenceManagerProvider) {
+    this.preferenceManagerProvider = preferenceManagerProvider;
+  }
+
+  public static MembersInjector<MainActivity> create(
+      Provider<PreferenceManager> preferenceManagerProvider) {
+    return new MainActivity_MembersInjector(preferenceManagerProvider);
+  }
+
+  @Override
+  public void injectMembers(MainActivity instance) {
+    injectPreferenceManager(instance, preferenceManagerProvider.get());
+  }
+
+  @InjectedFieldSignature("com.auraai.ui.MainActivity.preferenceManager")
+  public static void injectPreferenceManager(MainActivity instance,
+      PreferenceManager preferenceManager) {
+    instance.preferenceManager = preferenceManager;
+  }
+}

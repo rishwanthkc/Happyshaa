@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.auraai.ui.auth.AuthViewModelTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-07-26T07:26:12" hostname="LAPTOP-KV188SF6" time="1.252">
+  <properties/>
+  <testcase name="signIn_success_setsToastMessageAndTriggersSync" classname="com.auraai.ui.auth.AuthViewModelTest" time="1.252"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

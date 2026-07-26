@@ -1,9 +1,12 @@
 package com.auraai.ui.profile
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
@@ -15,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,6 +57,15 @@ fun ProfileScreen(
     val onBgColor = MaterialTheme.colorScheme.onBackground
     val cardContainerBg = if (isLight) Color.Black.copy(alpha = 0.03f) else Color.White.copy(alpha = 0.03f)
 
+    // Persistent storage for basic details using SharedPreferences
+    val context = LocalContext.current
+    val sharedPrefs = remember { context.getSharedPreferences("user_profile_details", Context.MODE_PRIVATE) }
+    
+    var nameInput by remember { mutableStateOf(sharedPrefs.getString("name", user.displayName ?: "") ?: "") }
+    var genderInput by remember { mutableStateOf(sharedPrefs.getString("gender", "") ?: "") }
+    var ageInput by remember { mutableStateOf(sharedPrefs.getString("age", "") ?: "") }
+    var bioInput by remember { mutableStateOf(sharedPrefs.getString("bio", "") ?: "") }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -76,6 +89,7 @@ fun ProfileScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
                     .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -87,8 +101,9 @@ fun ProfileScreen(
                         .background(Color(0xFF00F2FE).copy(alpha = 0.2f)),
                     contentAlignment = Alignment.Center
                 ) {
+                    val initialLetter = if (nameInput.isNotBlank()) nameInput.substring(0, 1) else (user.displayName ?: "H").substring(0, 1)
                     Text(
-                        text = (user.displayName ?: "A").substring(0, 1).uppercase(),
+                        text = initialLetter.uppercase(),
                         color = Color(0xFF00F2FE),
                         fontSize = 36.sp,
                         fontWeight = FontWeight.Bold
@@ -98,7 +113,7 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = user.displayName ?: "Happyshaa Member",
+                    text = nameInput.ifBlank { user.displayName ?: "Happyshaa Member" },
                     color = onBgColor,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold
@@ -148,7 +163,120 @@ fun ProfileScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // Personal Details Card
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = cardContainerBg),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Column(modifier = Modifier.padding(20.dp)) {
+                        Text(
+                            text = "Personal Profile Details",
+                            color = onBgColor,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp
+                        )
+                        Text(
+                            text = "Configure your display name, gender, and wellness info",
+                            color = onBgColor.copy(alpha = 0.6f),
+                            fontSize = 12.sp
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // Full Name Input
+                        OutlinedTextField(
+                            value = nameInput,
+                            onValueChange = { nameInput = it },
+                            label = { Text("Display Name", color = onBgColor.copy(alpha = 0.6f)) },
+                            singleLine = true,
+                            modifier = Modifier.fillMaxWidth(),
+                            textStyle = androidx.compose.ui.text.TextStyle(color = onBgColor),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFF00F2FE),
+                                unfocusedBorderColor = onBgColor.copy(alpha = 0.3f),
+                                cursorColor = Color(0xFF00F2FE)
+                            )
+                        )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            // Gender Selection
+                            OutlinedTextField(
+                                value = genderInput,
+                                onValueChange = { genderInput = it },
+                                label = { Text("Gender", color = onBgColor.copy(alpha = 0.6f)) },
+                                singleLine = true,
+                                modifier = Modifier.weight(1.2f),
+                                textStyle = androidx.compose.ui.text.TextStyle(color = onBgColor),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = Color(0xFF00F2FE),
+                                    unfocusedBorderColor = onBgColor.copy(alpha = 0.3f),
+                                    cursorColor = Color(0xFF00F2FE)
+                                )
+                            )
+
+                            // Age Input
+                            OutlinedTextField(
+                                value = ageInput,
+                                onValueChange = { ageInput = it },
+                                label = { Text("Age", color = onBgColor.copy(alpha = 0.6f)) },
+                                singleLine = true,
+                                modifier = Modifier.weight(0.8f),
+                                textStyle = androidx.compose.ui.text.TextStyle(color = onBgColor),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = Color(0xFF00F2FE),
+                                    unfocusedBorderColor = onBgColor.copy(alpha = 0.3f),
+                                    cursorColor = Color(0xFF00F2FE)
+                                )
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        // Bio Input
+                        OutlinedTextField(
+                            value = bioInput,
+                            onValueChange = { bioInput = it },
+                            label = { Text("Bio / Wellness Goals", color = onBgColor.copy(alpha = 0.6f)) },
+                            maxLines = 3,
+                            modifier = Modifier.fillMaxWidth(),
+                            textStyle = androidx.compose.ui.text.TextStyle(color = onBgColor),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFF00F2FE),
+                                unfocusedBorderColor = onBgColor.copy(alpha = 0.3f),
+                                cursorColor = Color(0xFF00F2FE)
+                            )
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // Save Button
+                        Button(
+                            onClick = {
+                                sharedPrefs.edit()
+                                    .putString("name", nameInput)
+                                    .putString("gender", genderInput)
+                                    .putString("age", ageInput)
+                                    .putString("bio", bioInput)
+                                    .apply()
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00F2FE)),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text("Save Details", color = Color.Black, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
 
                 // Theme Settings Card
                 Card(

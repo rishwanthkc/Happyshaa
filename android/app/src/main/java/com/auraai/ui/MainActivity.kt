@@ -1,5 +1,7 @@
 package com.auraai.ui
 
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -247,6 +249,19 @@ fun DashboardScreen(
     val onBgColor = MaterialTheme.colorScheme.onBackground
     val cardContainerBg = if (isLight) Color.Black.copy(alpha = 0.04f) else Color.White.copy(alpha = 0.04f)
 
+    val context = LocalContext.current
+    val sharedPrefs = remember { context.getSharedPreferences("user_profile_details", Context.MODE_PRIVATE) }
+    var savedName by remember { mutableStateOf(sharedPrefs.getString("name", "") ?: "") }
+
+    LaunchedEffect(user.displayName) {
+        if (savedName.isBlank() && !user.displayName.isNullOrBlank()) {
+            sharedPrefs.edit().putString("name", user.displayName).apply()
+            savedName = user.displayName
+        }
+    }
+
+    val displayNameToShow = if (savedName.isNotBlank()) savedName else (user.displayName ?: "Friend")
+
     val bgGradient = if (isLight) {
         Brush.verticalGradient(
             colors = listOf(
@@ -308,7 +323,7 @@ fun DashboardScreen(
             ) {
                 Column {
                     Text(
-                        text = "Hello, ${user.displayName ?: "Friend"}!",
+                        text = "Hello, $displayNameToShow!",
                         color = onBgColor,
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold

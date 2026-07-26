@@ -72,11 +72,11 @@ fun ChatScreen(
                                 .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(18.dp)),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text("A", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.Bold)
+                            Text("H", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.Bold)
                         }
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
-                            Text("Aura", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            Text("Happyshaa", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                             Text("Empathetic AI Companion", fontSize = 11.sp, color = Color.Gray)
                         }
                     }
@@ -135,7 +135,7 @@ fun ChatScreen(
                                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
                                     ) {
                                         Text(
-                                            text = "Aura is typing...",
+                                            text = "Happyshaa is typing...",
                                             fontSize = 13.sp,
                                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                                             color = Color.Gray
@@ -230,7 +230,7 @@ fun ChatScreen(
                         value = inputMsg,
                         onValueChange = { inputMsg = it },
                         modifier = Modifier.weight(1f),
-                        placeholder = { Text("Talk with Aura...") },
+                        placeholder = { Text("Talk with Happyshaa...") },
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
                             unfocusedContainerColor = Color.Transparent,
@@ -279,7 +279,7 @@ fun ChatBubbleRow(message: ChatMessage) {
                     .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(16.dp)),
                 contentAlignment = Alignment.Center
             ) {
-                Text("A", fontSize = 12.sp, color = MaterialTheme.colorScheme.onPrimaryContainer, fontWeight = FontWeight.Bold)
+                Text("H", fontSize = 12.sp, color = MaterialTheme.colorScheme.onPrimaryContainer, fontWeight = FontWeight.Bold)
             }
         }
 

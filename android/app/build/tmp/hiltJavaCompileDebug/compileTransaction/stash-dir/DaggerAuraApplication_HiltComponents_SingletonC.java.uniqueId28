@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.auraai.data.local.dao.StoriesDao;
 import com.auraai.data.local.db.AuraDatabase;
 import com.auraai.data.local.db.MoodDao;
+import com.auraai.data.local.db.QuestDao;
 import com.auraai.data.local.preferences.PreferenceManager;
 import com.auraai.data.remote.api.AuraApiService;
 import com.auraai.data.repository.ChatRepositoryImpl;
@@ -25,6 +26,7 @@ import com.auraai.data.repository.StoriesRepositoryImpl;
 import com.auraai.di.AppModule_Companion_ProvideFirebaseAuthFactory;
 import com.auraai.di.DatabaseModule_ProvideDatabaseFactory;
 import com.auraai.di.DatabaseModule_ProvideMoodDaoFactory;
+import com.auraai.di.DatabaseModule_ProvideQuestDaoFactory;
 import com.auraai.di.DatabaseModule_ProvideStoriesDaoFactory;
 import com.auraai.di.NetworkModule_ProvideAuraApiServiceFactory;
 import com.auraai.di.NetworkModule_ProvideLoggingInterceptorFactory;
@@ -752,7 +754,7 @@ public final class DaggerAuraApplication_HiltComponents_SingletonC {
           return (T) new ContactsViewModel(viewModelCImpl.getContactsUseCase(), viewModelCImpl.createContactUseCase(), viewModelCImpl.updateContactUseCase(), viewModelCImpl.deleteContactUseCase(), viewModelCImpl.toggleFavoriteContactUseCase(), viewModelCImpl.getCurrentUserTokenUseCase());
 
           case 3: // com.auraai.ui.games.GamesViewModel 
-          return (T) new GamesViewModel(viewModelCImpl.getGamesUseCase(), viewModelCImpl.submitGameScoreUseCase(), viewModelCImpl.getAchievementsUseCase(), viewModelCImpl.getCurrentUserTokenUseCase());
+          return (T) new GamesViewModel(viewModelCImpl.getGamesUseCase(), viewModelCImpl.submitGameScoreUseCase(), viewModelCImpl.getAchievementsUseCase(), viewModelCImpl.getCurrentUserTokenUseCase(), singletonCImpl.provideQuestDaoProvider.get());
 
           case 4: // com.auraai.ui.journal.JournalViewModel 
           return (T) new JournalViewModel(viewModelCImpl.createJournalEntryUseCase(), viewModelCImpl.getJournalsUseCase(), viewModelCImpl.generateWeeklyReportUseCase(), viewModelCImpl.getWeeklyReportsUseCase(), viewModelCImpl.summarizeVoiceJournalUseCase(), viewModelCImpl.getCurrentUserTokenUseCase());
@@ -875,11 +877,13 @@ public final class DaggerAuraApplication_HiltComponents_SingletonC {
 
     private Provider<GamesRepositoryImpl> gamesRepositoryImplProvider;
 
+    private Provider<AuraDatabase> provideDatabaseProvider;
+
+    private Provider<QuestDao> provideQuestDaoProvider;
+
     private Provider<JournalRepositoryImpl> journalRepositoryImplProvider;
 
     private Provider<MeditationRepositoryImpl> meditationRepositoryImplProvider;
-
-    private Provider<AuraDatabase> provideDatabaseProvider;
 
     private Provider<MoodDao> provideMoodDaoProvider;
 
@@ -913,16 +917,17 @@ public final class DaggerAuraApplication_HiltComponents_SingletonC {
       this.chatRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<ChatRepositoryImpl>(singletonCImpl, 7));
       this.contactsRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<ContactsRepositoryImpl>(singletonCImpl, 8));
       this.gamesRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<GamesRepositoryImpl>(singletonCImpl, 9));
-      this.journalRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<JournalRepositoryImpl>(singletonCImpl, 10));
-      this.meditationRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<MeditationRepositoryImpl>(singletonCImpl, 11));
-      this.provideDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<AuraDatabase>(singletonCImpl, 14));
-      this.provideMoodDaoProvider = DoubleCheck.provider(new SwitchingProvider<MoodDao>(singletonCImpl, 13));
-      this.moodRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<MoodRepositoryImpl>(singletonCImpl, 12));
-      this.musicRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<MusicRepositoryImpl>(singletonCImpl, 15));
-      this.notificationsRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<NotificationsRepositoryImpl>(singletonCImpl, 16));
-      this.recommendationRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<RecommendationRepositoryImpl>(singletonCImpl, 17));
-      this.provideStoriesDaoProvider = DoubleCheck.provider(new SwitchingProvider<StoriesDao>(singletonCImpl, 19));
-      this.storiesRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<StoriesRepositoryImpl>(singletonCImpl, 18));
+      this.provideDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<AuraDatabase>(singletonCImpl, 11));
+      this.provideQuestDaoProvider = DoubleCheck.provider(new SwitchingProvider<QuestDao>(singletonCImpl, 10));
+      this.journalRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<JournalRepositoryImpl>(singletonCImpl, 12));
+      this.meditationRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<MeditationRepositoryImpl>(singletonCImpl, 13));
+      this.provideMoodDaoProvider = DoubleCheck.provider(new SwitchingProvider<MoodDao>(singletonCImpl, 15));
+      this.moodRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<MoodRepositoryImpl>(singletonCImpl, 14));
+      this.musicRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<MusicRepositoryImpl>(singletonCImpl, 16));
+      this.notificationsRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<NotificationsRepositoryImpl>(singletonCImpl, 17));
+      this.recommendationRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<RecommendationRepositoryImpl>(singletonCImpl, 18));
+      this.provideStoriesDaoProvider = DoubleCheck.provider(new SwitchingProvider<StoriesDao>(singletonCImpl, 20));
+      this.storiesRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<StoriesRepositoryImpl>(singletonCImpl, 19));
     }
 
     @Override
@@ -988,34 +993,37 @@ public final class DaggerAuraApplication_HiltComponents_SingletonC {
           case 9: // com.auraai.data.repository.GamesRepositoryImpl 
           return (T) new GamesRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get());
 
-          case 10: // com.auraai.data.repository.JournalRepositoryImpl 
-          return (T) new JournalRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get());
+          case 10: // com.auraai.data.local.db.QuestDao 
+          return (T) DatabaseModule_ProvideQuestDaoFactory.provideQuestDao(singletonCImpl.provideDatabaseProvider.get());
 
-          case 11: // com.auraai.data.repository.MeditationRepositoryImpl 
-          return (T) new MeditationRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get());
-
-          case 12: // com.auraai.data.repository.MoodRepositoryImpl 
-          return (T) new MoodRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get(), singletonCImpl.provideMoodDaoProvider.get());
-
-          case 13: // com.auraai.data.local.db.MoodDao 
-          return (T) DatabaseModule_ProvideMoodDaoFactory.provideMoodDao(singletonCImpl.provideDatabaseProvider.get());
-
-          case 14: // com.auraai.data.local.db.AuraDatabase 
+          case 11: // com.auraai.data.local.db.AuraDatabase 
           return (T) DatabaseModule_ProvideDatabaseFactory.provideDatabase(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
-          case 15: // com.auraai.data.repository.MusicRepositoryImpl 
+          case 12: // com.auraai.data.repository.JournalRepositoryImpl 
+          return (T) new JournalRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get());
+
+          case 13: // com.auraai.data.repository.MeditationRepositoryImpl 
+          return (T) new MeditationRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get());
+
+          case 14: // com.auraai.data.repository.MoodRepositoryImpl 
+          return (T) new MoodRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get(), singletonCImpl.provideMoodDaoProvider.get());
+
+          case 15: // com.auraai.data.local.db.MoodDao 
+          return (T) DatabaseModule_ProvideMoodDaoFactory.provideMoodDao(singletonCImpl.provideDatabaseProvider.get());
+
+          case 16: // com.auraai.data.repository.MusicRepositoryImpl 
           return (T) new MusicRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get());
 
-          case 16: // com.auraai.data.repository.NotificationsRepositoryImpl 
+          case 17: // com.auraai.data.repository.NotificationsRepositoryImpl 
           return (T) new NotificationsRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get());
 
-          case 17: // com.auraai.data.repository.RecommendationRepositoryImpl 
+          case 18: // com.auraai.data.repository.RecommendationRepositoryImpl 
           return (T) new RecommendationRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get());
 
-          case 18: // com.auraai.data.repository.StoriesRepositoryImpl 
+          case 19: // com.auraai.data.repository.StoriesRepositoryImpl 
           return (T) new StoriesRepositoryImpl(singletonCImpl.provideAuraApiServiceProvider.get(), singletonCImpl.provideStoriesDaoProvider.get());
 
-          case 19: // com.auraai.data.local.dao.StoriesDao 
+          case 20: // com.auraai.data.local.dao.StoriesDao 
           return (T) DatabaseModule_ProvideStoriesDaoFactory.provideStoriesDao(singletonCImpl.provideDatabaseProvider.get());
 
           default: throw new AssertionError(id);

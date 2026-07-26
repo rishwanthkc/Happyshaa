@@ -524,17 +524,26 @@ fun DashboardScreen(
 
             // Dialog for adding task
             if (showAddDialog) {
+                val dialogBg = if (isLight) MaterialTheme.colorScheme.surface else Color(0xFF15102A)
+                val dialogText = if (isLight) MaterialTheme.colorScheme.onSurface else Color.White
+                val dialogSubText = if (isLight) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f) else Color.White.copy(alpha = 0.6f)
                 var newQuestText by remember { mutableStateOf("") }
                 AlertDialog(
                     onDismissRequest = { showAddDialog = false },
-                    title = { Text("New Wellness Quest", color = Color.White) },
+                    title = { Text("New Wellness Quest", color = dialogText, fontWeight = FontWeight.Bold) },
                     text = {
                         OutlinedTextField(
                             value = newQuestText,
                             onValueChange = { newQuestText = it },
-                            label = { Text("What quest do you want to accomplish?") },
+                            label = { Text("What quest do you want to accomplish?", color = dialogSubText) },
                             singleLine = true,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            textStyle = androidx.compose.ui.text.TextStyle(color = dialogText),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFF00F2FE),
+                                unfocusedBorderColor = dialogSubText,
+                                cursorColor = Color(0xFF00F2FE)
+                            )
                         )
                     },
                     confirmButton = {
@@ -546,31 +555,40 @@ fun DashboardScreen(
                                 showAddDialog = false
                             }
                         ) {
-                            Text("Add", color = Color(0xFF00F2FE))
+                            Text("Add", color = Color(0xFF00F2FE), fontWeight = FontWeight.Bold)
                         }
                     },
                     dismissButton = {
                         TextButton(onClick = { showAddDialog = false }) {
-                            Text("Cancel", color = Color.White)
+                            Text("Cancel", color = dialogSubText)
                         }
                     },
-                    containerColor = Color(0xFF15102A)
+                    containerColor = dialogBg
                 )
             }
 
             // Dialog for editing task
             if (taskToEdit != null) {
+                val dialogBg = if (isLight) MaterialTheme.colorScheme.surface else Color(0xFF15102A)
+                val dialogText = if (isLight) MaterialTheme.colorScheme.onSurface else Color.White
+                val dialogSubText = if (isLight) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f) else Color.White.copy(alpha = 0.6f)
                 var editedQuestText by remember { mutableStateOf(taskToEdit!!.text) }
                 AlertDialog(
                     onDismissRequest = { taskToEdit = null },
-                    title = { Text("Edit Quest", color = Color.White) },
+                    title = { Text("Edit Quest", color = dialogText, fontWeight = FontWeight.Bold) },
                     text = {
                         OutlinedTextField(
                             value = editedQuestText,
                             onValueChange = { editedQuestText = it },
-                            label = { Text("Quest title") },
+                            label = { Text("Quest title", color = dialogSubText) },
                             singleLine = true,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            textStyle = androidx.compose.ui.text.TextStyle(color = dialogText),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFF00F2FE),
+                                unfocusedBorderColor = dialogSubText,
+                                cursorColor = Color(0xFF00F2FE)
+                            )
                         )
                     },
                     confirmButton = {
@@ -582,15 +600,15 @@ fun DashboardScreen(
                                 taskToEdit = null
                             }
                         ) {
-                            Text("Save", color = Color(0xFF00F2FE))
+                            Text("Save", color = Color(0xFF00F2FE), fontWeight = FontWeight.Bold)
                         }
                     },
                     dismissButton = {
                         TextButton(onClick = { taskToEdit = null }) {
-                            Text("Cancel", color = Color.White)
+                            Text("Cancel", color = dialogSubText)
                         }
                     },
-                    containerColor = Color(0xFF15102A)
+                    containerColor = dialogBg
                 )
             }
 

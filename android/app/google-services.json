@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "123456789012",
-    "project_id": "aura-ai-mock",
-    "storage_bucket": "aura-ai-mock.appspot.com"
+    "project_number": "753367604308",
+    "project_id": "happy-sha",
+    "storage_bucket": "happy-sha.firebasestorage.app",
+    "firebase_database_url": "https://happy-sha-default-rtdb.firebaseio.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123456789012:android:abcdef0123456789",
+        "mobilesdk_app_id": "1:753367604308:android:abcdef0123456789",
         "android_client_info": {
           "package_name": "com.auraai"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "mock_api_key_aura_ai_companion_app"
+          "current_key": "AIzaSyCDevjrjat5P_aUSHLcGOWAlAt2UaMsB0I"
         }
       ],
       "services": {
@@ -27,3 +28,4 @@
   ],
   "configuration_version": "1"
 }
+

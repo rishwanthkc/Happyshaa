@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     # Alternatively, raw JSON string of firebase credentials for cloud environments
     FIREBASE_CREDENTIALS_JSON: Optional[str] = None
     
+    # Firebase Realtime Database URL
+    FIREBASE_DATABASE_URL: Optional[str] = "https://happy-sha-default-rtdb.firebaseio.com"
+    
     # AI Engine API Key configurations
     GEMINI_API_KEY: Optional[str] = None
 
